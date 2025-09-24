@@ -20,7 +20,7 @@ public class CRUDClass {
 		// updateTable();
 
 		// Drop테이블삭제
-		// dropTable();
+		dropTable();
 
 		// Delete테이블안에 row삭제 - delete
 		// deleteUser();
@@ -28,6 +28,25 @@ public class CRUDClass {
 		// insert
 		// insertUser();
 
+	}
+
+	private void dropTable() {
+		String sql = "Drop table users";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBconnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			int rows = pstmt.executeUpdate();
+			System.out.println(rows + "users 테이블이 삭제되었습니다");	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//깔끔하게 자원 해제
+			DBconnection.close(pstmt, conn);
+		}
+		
 	}
 
 	private void insertUser() {
